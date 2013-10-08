@@ -12,10 +12,8 @@ int len;
 void setup() {
 
   //general setup. we will use an image buffer to draw things off screen. maybe this helps?
-  size(600, 800, P2D );
+  size(700, 800, P2D );
   frameRate(60);
-  //buffer = createGraphics(600,800, P2D);
-  //buffer.noStroke();
   background(0);
   backImg = loadImage("background.jpg");
 
