@@ -1,0 +1,7 @@
+Add new fireworks
+	-Willow
+	-Multi-explosion
+
+Restructure classes for more flexibility
+
+Build functions for things like detonation charge, repel, attract. Don't have them need to be initialized at the beginning.
