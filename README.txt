@@ -1,1 +1,1 @@
-This interactive wall is just beginnining!
+This interactive wall is just beginning!
