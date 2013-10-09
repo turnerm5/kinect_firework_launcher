@@ -1,60 +1,56 @@
 import java.util.Iterator;
 
 class TrailSystem{
- 
-  float particleSize, x, y;
-  color particleColor;
-  boolean isDead;
-  float topspeed;
-  int timer;
-  float yVelocity;
-  
-  ArrayList<TrailParticle> particleArray;
-  ArrayList<ShellSystem> charges;
   
   PVector location;
   PVector velocity;
   PVector acceleration;
+  
+  boolean isDead;
+  
+  float topspeed;
+  int timer;
+  
+  float yVelocity;
+  
+  ArrayList<TrailParticle> trailArray;
+  ArrayList<ShellSystem> chargeArray;
     
-  TrailSystem(PVector location_) {
+  TrailSystem(PVector location_, int timer_) {
     location = location_.get();
-    yVelocity = random(-18,-14);
-    velocity = new PVector(random(-2,2),yVelocity);
-    acceleration = new PVector(0,8);
     
-    particleArray = new ArrayList<TrailParticle>();
-    charges = new ArrayList<ShellSystem>();
+    //launch the fireworks. would this be better accomplished through an applyForce function?
+    velocity = new PVector();
+    acceleration = new PVector();
+    
+    trailArray = new ArrayList<TrailParticle>();
+    chargeArray = new ArrayList<ShellSystem>();
     
     topspeed = 12;
-    timer = int( -1 * (yVelocity - 50));    
+    timer = timer_;    
   }
   
   void addTrailParticle() {
     if (timer > 0) {
-      particleSize = random(1,2);
-      //determine fly color (Yellowish?)
-      particleColor = color(random(200,255),random(0,30),random(10,30));   
-      //fill our array with instances of the superpixels
-      particleArray.add(new TrailParticle(location, particleColor, particleSize));
+      trailArray.add(new TrailParticle(location));
     }
+  }
+  
+  void applyForce(PVector force) {
+    PVector f = new PVector();
+    acceleration.add(f);
   }
   
   void update() {
       velocity.add(acceleration);
-      velocity.mult(.999);
-      velocity.limit(topspeed);
       location.add(velocity);
+      velocity.limit(topspeed);
       acceleration.mult(0);
       timer--;
   } 
-  
-  void run() {
     
-    update();
-    addTrailParticle();
-    //checkEdges();
-    explode();
-    Iterator<TrailParticle> it = particleArray.iterator();
+  void manageTrail() {
+    Iterator<TrailParticle> it = trailArray.iterator();
     
     while (it.hasNext()) {
       TrailParticle f = it.next();    
@@ -63,8 +59,11 @@ class TrailSystem{
         it.remove(); 
       }
     }
-
-    Iterator<ShellSystem> ss = charges.iterator();
+    
+  }
+  
+  void manageCharges() {
+    Iterator<ShellSystem> ss = chargeArray.iterator();
     
     while (ss.hasNext()) {
       ShellSystem s = ss.next();    
@@ -73,7 +72,6 @@ class TrailSystem{
         ss.remove(); 
       }
     }
-    
   }
    
   void explode() {
@@ -119,5 +117,15 @@ class TrailSystem{
     } else {
       return false;
     }
+  }
+  
+  
+  void run() {
+    update();
+    //checkEdges();
+    addTrailParticle();
+    manageTrail();
+    explode();
+    manageCharges();
   }
 }

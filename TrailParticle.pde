@@ -1,27 +1,26 @@
 class TrailParticle {
+  
   PVector location;
   PVector velocity;
   PVector acceleration;
+  
   color particleColor;
   float particleSize;
   
   float topspeed;
-  float m;
+  float opacity;
   
   int lifespan;
   
-  
   //construct the particles!!
-  TrailParticle(PVector origin_,  color particleColor_, float particleSize_) {
+  TrailParticle(PVector origin_) { 
 
     //standard location/velocity/acceleration
     location = origin_.get();
-    velocity = new PVector(random(-1,1),random(-1,1));
-    acceleration = new PVector(0,.5);
-    
-    //how should we fill the square? how big are they
-    particleColor = particleColor_;
-    particleSize = particleSize_;
+    velocity = new PVector();
+    acceleration = new PVector();
+    particleColor = color(random(200,255),random(0,30),random(10,30));
+    particleSize = random(1,2);
     topspeed = 12;
 
     lifespan = (int) ((randomGaussian() * 50) + 10) ;
@@ -30,14 +29,12 @@ class TrailParticle {
   
   void run() {
    update();
-   
    display();
-   
    lifespan--;
   }
   
-  void applyForce(float force) {
-    PVector f = new PVector(0, force);
+  void applyForce(PVector force) {
+    PVector f = new PVector();
     acceleration.add(f);
   }
 
@@ -50,15 +47,10 @@ class TrailParticle {
       acceleration.mult(0);
   } 
 
-  //draw the firefly
   void display() {
-    //they'll explode as they die!
-      float m = map(lifespan,400,0,220,150);
-      //buffer.fill(particleColor,m);
-      //buffer.noStroke();
-      //buffer.rect(location.x, location.y, particleSize, particleSize);
-      
-      fill(particleColor,m);
+    //they'll fade as they die!
+      float opacity = map(lifespan,400,0,220,150);
+      fill(particleColor,opacity);
       noStroke();
       rect(location.x, location.y, particleSize, particleSize);
   }
