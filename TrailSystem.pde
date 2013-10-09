@@ -15,9 +15,7 @@ class TrailSystem{
   PVector location;
   PVector velocity;
   PVector acceleration;
-  
-  AudioPlayer explosionSound1, explosionSound2, explosionSound3;
-  
+    
   TrailSystem(PVector location_) {
     location = location_.get();
     yVelocity = random(-18,-14);
@@ -28,9 +26,7 @@ class TrailSystem{
     charges = new ArrayList<ShellSystem>();
     
     topspeed = 12;
-    timer = int( -1 * (yVelocity - 50));
-     
-    
+    timer = int( -1 * (yVelocity - 50));    
   }
   
   void addTrailParticle() {

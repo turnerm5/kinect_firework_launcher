@@ -3,11 +3,13 @@ class StandardParticle {
   PVector location;
   PVector velocity;
   PVector acceleration;
-  PVector target;
+
   color particleColor;
   float particleSize;
+  
   float topspeed;
-  float m;
+  float opacity;
+  
   int lifespan;
   int accelDelay;
   float friction;
@@ -28,10 +30,14 @@ class StandardParticle {
     accelDelay = accelDelay_;
     
     friction = mult_;
-    
-    //a nice organic lifespan. doesn't look too rigid
+
     lifespan = lifespan_ ;
 
+  }
+  
+  void applyForce(PVector force) {
+    PVector f = force.get();
+    acceleration.add(f); 
   }
   
   void run() {
@@ -51,28 +57,24 @@ class StandardParticle {
   //basic motion, with some damping to slow everything down
   void update() {
     
-    accelDelay--;  
+    //a timer to prevent them from accelerating right away. I think this should be done a little differently.
+    accelDelay--;
     
     if (accelDelay < 0) {
       velocity.add(acceleration);
     }
       //slows them down as they travel.
       velocity.mult(friction);
-      
       velocity.limit(topspeed);
       location.add(velocity);
-      //acceleration.mult(0);
+      acceleration.mult(0);
   } 
 
   //draw the firefly
   void display() {
-    //they'll explode as they die!
-      int m = (int)map(lifespan,400,0,255,180);
-      //buffer.fill(particleColor,m);
-      //buffer.noStroke();
-      //buffer.rect(location.x, location.y, particleSize, particleSize);
-      
-      fill(particleColor,m);
+      //they'll fade as they die!
+      int opacity = (int)map(lifespan,400,0,255,180);
+      fill(particleColor, opacity);
       noStroke();
       rect(location.x, location.y, particleSize, particleSize);
   }
@@ -98,7 +100,6 @@ class StandardParticle {
     }
   }
   
-  
   boolean isDead() {
     if (lifespan < 0) {
       return true;
@@ -107,4 +108,5 @@ class StandardParticle {
     }
   }
 
+  
 }
