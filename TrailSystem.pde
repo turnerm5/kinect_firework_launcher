@@ -36,8 +36,9 @@ class TrailSystem{
   }
   
   void applyForce(PVector force) {
-    PVector f = force.get();
-    acceleration.add(f);
+    for (TrailParticle p: trailArray) {
+      p.applyForce(force);
+    }
   }
   
   void update() {
