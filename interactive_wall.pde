@@ -14,7 +14,7 @@ void setup() {
   fireworks = new ArrayList<TrailSystem>();
   charges = new ArrayList<ShellSystem>();
   
-  gravity = new PVector(0,.05);
+  gravity = new PVector(0,.12);
   
 }
 
@@ -33,9 +33,16 @@ void manageFireworks() {
   while (it.hasNext()) {
     TrailSystem f = it.next();    
     f.run();
+    
+    if (!f.launched) {
+      float launchStrength = -1 * abs((randomGaussian()*3)+30);
+      f.launch(new PVector(random(-1,1),launchStrength));
+      println("Launched");
+    }
+    
     f.applyForce(gravity);
     if (f.isDead()) {
-      it.remove(); 
+      it.remove();
     }
   } 
 }

@@ -6,6 +6,7 @@ class TrailSystem{
   PVector velocity;
   PVector acceleration;
   
+  boolean launched;
   boolean isDead;
   
   float topspeed;
@@ -15,6 +16,7 @@ class TrailSystem{
   ArrayList<ShellSystem> chargeArray;
     
   TrailSystem(PVector location_, int timer_) {
+    launched = false;
     location = location_.get();
     
     //launch the fireworks. would this be better accomplished through an applyForce function?
@@ -35,7 +37,16 @@ class TrailSystem{
     }
   }
   
+  void launch(PVector force) {
+    PVector f = force.get();
+    velocity.add(f);
+    launched = true;
+  }
+  
   void applyForce(PVector force) {
+    PVector f = force.get();
+    acceleration.add(f);
+    
     for (TrailParticle p: trailArray) {
       p.applyForce(force);
     }
@@ -56,7 +67,6 @@ class TrailSystem{
     while (it.hasNext()) {
       TrailParticle f = it.next();    
       f.run();
-      f.applyForce(gravity);
       if (f.isDead()) {
         it.remove(); 
       }
@@ -121,8 +131,7 @@ class TrailSystem{
       return false;
     }
   }
-  
-  
+    
   void run() {
     update();
     manageTrail();

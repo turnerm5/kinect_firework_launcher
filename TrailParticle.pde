@@ -11,18 +11,17 @@ class TrailParticle {
   float opacity;
   
   int lifespan;
-  
+   
   //construct the particles!!
   TrailParticle(PVector origin_) { 
 
     //standard location/velocity/acceleration
     location = origin_.get();
-    velocity = new PVector();
+    velocity = new PVector(randomGaussian(),randomGaussian());
     acceleration = new PVector();
     particleColor = color(random(200,255),random(0,30),random(10,30));
     particleSize = random(1,2);
     topspeed = 12;
-
     lifespan = (int) ((randomGaussian() * 50) + 10) ;
 
   }
@@ -37,10 +36,16 @@ class TrailParticle {
     PVector f = force.get();
     acceleration.add(f);
   }
+  
+  void launch(PVector force) {
+    PVector f = force.get();
+    velocity.add(f);
+  }
 
   //basic motion, with some damping to slow everything down
   void update() {
       velocity.add(acceleration);
+      velocity.mult(.98);
       velocity.limit(topspeed);
       location.add(velocity);
       acceleration.mult(0);
