@@ -1,32 +1,47 @@
 import java.util.Iterator;
 
 class ShellSystem{
-   
+  
+  boolean hasExploded;
   boolean isDead;
   
   ArrayList<StandardParticle> starArray;
  
-  PVector location; 
+  PVector location;
+ 
+  int timer; 
    
   ShellSystem(PVector location_) {
     location = location_.get();
     starArray = new ArrayList<StandardParticle>();
     initParticles();
+    hasExploded = false;
+    timer = 150;
   }
   
   void initParticles() {
-    color particleColor = color(random(50,255),random(50,255),random(50,255));
     int numParticles = int(random(50,120));
     for (int i = 0; i < numParticles; i++) {     
-
-      float particleSize = random(1,4);
-      int partLifespan = (int) ((randomGaussian() * 30) + 80);
-      starArray.add(new StandardParticle(location, particleColor, particleSize, partLifespan));
+      starArray.add(new StandardParticle(location));
     }
   }
   
+  void detonate() {
+     
+    Iterator<StandardParticle> it = starArray.iterator();
+    
+    while (it.hasNext()) {
+      StandardParticle f = it.next();
+      PVector detCharge = new PVector(randomGaussian()*2,randomGaussian()*2);   
+      f.detonate(detCharge);
+    }
+    
+    hasExploded = true;
+  }
+  
+  
   void run() {
-      
+    
     Iterator<StandardParticle> it = starArray.iterator();
     
     while (it.hasNext()) {
@@ -36,12 +51,12 @@ class ShellSystem{
         it.remove(); 
       }
     }
+    
+    timer--;
   }
   
   boolean isDead() {
-    //this might be an issue. check if there aren't any stars created
-    int sas = starArray.size();
-    if (sas == 0) {
+    if (timer > -200) {
       return true;
     }  else {
       return false;

@@ -14,24 +14,27 @@ class StandardParticle {
   float friction;
   
   //construct the particles!!
-  StandardParticle(PVector origin_,  color particleColor_, float particleSize_, int lifespan_) {
+  StandardParticle(PVector origin_) {
 
-    //standard location/velocity/acceleration
     location = origin_.get();
     velocity = new PVector();
     acceleration = new PVector();
     
+    particleColor = color(random(0,255), random(0,255), random(0,255));
+    
     //how should we fill the square? how big are they
-    particleColor = particleColor_;
-    particleSize = particleSize_;
-
-    lifespan = lifespan_ ;
-
+    particleSize = random(1,4);
+    lifespan = (int) ((randomGaussian() * 30) + 80);
   }
   
   void applyForce(PVector force) {
     PVector f = force.get();
     acceleration.add(f); 
+  }
+  
+  void detonate(PVector force) {
+    PVector f = force.get();
+    velocity.add(f); 
   }
     
   void seek(PVector target_) {
@@ -43,7 +46,6 @@ class StandardParticle {
   
   void update() {
       velocity.mult(friction);
-      //velocity.limit(topspeed);
       location.add(velocity);
       acceleration.mult(0);
   } 
@@ -86,7 +88,6 @@ class StandardParticle {
   
   void run() {
     update();
-    //checkEdges();
     display();
     lifespan--;
   }

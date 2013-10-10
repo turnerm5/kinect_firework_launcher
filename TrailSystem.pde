@@ -11,8 +11,6 @@ class TrailSystem{
   float topspeed;
   int timer;
   
-  float yVelocity;
-  
   ArrayList<TrailParticle> trailArray;
   ArrayList<ShellSystem> chargeArray;
     
@@ -22,6 +20,7 @@ class TrailSystem{
     //launch the fireworks. would this be better accomplished through an applyForce function?
     velocity = new PVector();
     acceleration = new PVector();
+    
     
     trailArray = new ArrayList<TrailParticle>();
     chargeArray = new ArrayList<ShellSystem>();
@@ -37,7 +36,7 @@ class TrailSystem{
   }
   
   void applyForce(PVector force) {
-    PVector f = new PVector();
+    PVector f = force.get();
     acceleration.add(f);
   }
   
@@ -46,6 +45,7 @@ class TrailSystem{
       location.add(velocity);
       velocity.limit(topspeed);
       acceleration.mult(0);
+      addTrailParticle();
       timer--;
   } 
     
@@ -55,6 +55,7 @@ class TrailSystem{
     while (it.hasNext()) {
       TrailParticle f = it.next();    
       f.run();
+      f.applyForce(gravity);
       if (f.isDead()) {
         it.remove(); 
       }
@@ -86,6 +87,7 @@ class TrailSystem{
        charges.add(new Wacky(location));
      } else {
        charges.add(new ShellSystem(location));
+       println("SS added");
      }
    }
   }
@@ -122,8 +124,6 @@ class TrailSystem{
   
   void run() {
     update();
-    //checkEdges();
-    addTrailParticle();
     manageTrail();
     explode();
     manageCharges();

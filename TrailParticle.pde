@@ -34,14 +34,13 @@ class TrailParticle {
   }
   
   void applyForce(PVector force) {
-    PVector f = new PVector();
+    PVector f = force.get();
     acceleration.add(f);
   }
 
   //basic motion, with some damping to slow everything down
   void update() {
       velocity.add(acceleration);
-      velocity.mult(.98);
       velocity.limit(topspeed);
       location.add(velocity);
       acceleration.mult(0);

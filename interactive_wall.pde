@@ -4,6 +4,8 @@ import ddf.minim.*;
 ArrayList<TrailSystem> fireworks;
 ArrayList<ShellSystem> charges;
 
+PVector gravity;
+
 void setup() {
   size(700, 800, P2D);
   
@@ -11,6 +13,9 @@ void setup() {
   
   fireworks = new ArrayList<TrailSystem>();
   charges = new ArrayList<ShellSystem>();
+  
+  gravity = new PVector(0,.05);
+  
 }
 
 void mousePressed() {
@@ -28,6 +33,7 @@ void manageFireworks() {
   while (it.hasNext()) {
     TrailSystem f = it.next();    
     f.run();
+    f.applyForce(gravity);
     if (f.isDead()) {
       it.remove(); 
     }
