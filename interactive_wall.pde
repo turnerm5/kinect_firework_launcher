@@ -37,7 +37,6 @@ void manageFireworks() {
     if (!f.launched) {
       float launchStrength = -1 * abs((randomGaussian()*3)+30);
       f.launch(new PVector(random(-1,1),launchStrength));
-      println("Launched");
     }
     
     f.applyForce(gravity);

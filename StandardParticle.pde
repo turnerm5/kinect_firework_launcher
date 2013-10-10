@@ -56,6 +56,7 @@ class StandardParticle {
       fill(particleColor, opacity);
       noStroke();
       rect(location.x, location.y, particleSize, particleSize);
+      println("Displaying");
   }
   
   void checkEdges() {

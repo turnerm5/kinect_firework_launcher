@@ -2,20 +2,21 @@ import java.util.Iterator;
 
 class ShellSystem{
   
-  boolean hasExploded;
   boolean isDead;
   
   ArrayList<StandardParticle> starArray;
  
   PVector location;
  
-  int timer; 
+  int timer;
+ 
+  boolean detonated; 
    
   ShellSystem(PVector location_) {
     location = location_.get();
     starArray = new ArrayList<StandardParticle>();
     initParticles();
-    hasExploded = false;
+    detonated = false;
     timer = 150;
   }
   
@@ -32,11 +33,13 @@ class ShellSystem{
     
     while (it.hasNext()) {
       StandardParticle f = it.next();
-      PVector detCharge = new PVector(randomGaussian()*2,randomGaussian()*2);   
+      PVector detCharge = new PVector((randomGaussian()*2)+2,(randomGaussian()*2)+2);   
       f.detonate(detCharge);
     }
     
-    hasExploded = true;
+    detonated = true;
+    println("Detonated");
+    
   }
   
   

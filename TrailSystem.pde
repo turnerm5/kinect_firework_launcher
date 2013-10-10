@@ -80,6 +80,12 @@ class TrailSystem{
     while (ss.hasNext()) {
       ShellSystem s = ss.next();    
       s.run();
+      
+      
+      if (!s.detonated) {
+        s.detonate();
+      }
+      
       if (s.isDead()) {
         ss.remove(); 
       }
@@ -89,19 +95,10 @@ class TrailSystem{
   void explode() {
    if (timer == 0) {
      ellipse(location.x,location.y,12,12);
-     
-     //add a new ShellSystem at the location of the emitter
-     float zz = random(0,1);
-     if (zz < .25) {
-       charges.add(new Peony(location));
-     } else if (zz < .5) {
-       charges.add(new Wacky(location));
-     } else {
-       charges.add(new ShellSystem(location));
-       println("SS added");
-     }
+     chargeArray.add(new ShellSystem(location));
    }
-  }
+   }
+  
   
   void checkEdges() {
     //make the fireworks bounce off the edges. it's offset a bit so you can chase them off-screen  
