@@ -75,19 +75,18 @@ class TrailSystem{
   }
   
   void manageCharges() {
-    Iterator<ShellSystem> ss = chargeArray.iterator();
+    Iterator<ShellSystem> ca = chargeArray.iterator();
     
-    while (ss.hasNext()) {
-      ShellSystem s = ss.next();    
-      s.run();
-      
-      
-      if (!s.detonated) {
-        s.detonate();
+    while (ca.hasNext()) {
+      ShellSystem ss = ca.next();    
+      ss.run();
+      ss.applyForce(gravity);
+      if (!ss.detonated) {
+        ss.detonate();
       }
       
-      if (s.isDead()) {
-        ss.remove(); 
+      if (ss.isDead()) {
+        ca.remove();
       }
     }
   }

@@ -21,10 +21,14 @@ class StandardParticle {
     acceleration = new PVector();
     
     particleColor = color(random(0,255), random(0,255), random(0,255));
-    
-    //how should we fill the square? how big are they
-    particleSize = random(1,4);
-    lifespan = (int) ((randomGaussian() * 30) + 80);
+    particleSize = random(2,4);
+    lifespan = (int) ((randomGaussian() * 10) + 100);
+  }
+  
+  void run() {
+    update();
+    display();
+    lifespan--;
   }
   
   void applyForce(PVector force) {
@@ -36,16 +40,10 @@ class StandardParticle {
     PVector f = force.get();
     velocity.add(f); 
   }
-    
-  void seek(PVector target_) {
-    PVector dir = PVector.sub(target_, location);
-    dir.normalize();
-    dir.mult(0.1);
-    acceleration = dir;
-  }
   
   void update() {
-      velocity.mult(friction);
+      velocity.add(acceleration);
+      velocity.mult(.92);
       location.add(velocity);
       acceleration.mult(0);
   } 
@@ -56,7 +54,6 @@ class StandardParticle {
       fill(particleColor, opacity);
       noStroke();
       rect(location.x, location.y, particleSize, particleSize);
-      println("Displaying");
   }
   
   void checkEdges() {
@@ -87,10 +84,6 @@ class StandardParticle {
     }
   }
   
-  void run() {
-    update();
-    display();
-    lifespan--;
-  }
+
   
 }

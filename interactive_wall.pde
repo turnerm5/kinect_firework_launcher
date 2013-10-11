@@ -7,14 +7,14 @@ ArrayList<ShellSystem> charges;
 PVector gravity;
 
 void setup() {
-  size(700, 800, P2D);
+  size(700, 800);
   
   background(0);
   
   fireworks = new ArrayList<TrailSystem>();
   charges = new ArrayList<ShellSystem>();
   
-  gravity = new PVector(0,.12);
+  gravity = new PVector(0,.05);
   
 }
 
@@ -24,7 +24,8 @@ void mousePressed() {
 }
 
 void draw() {
-  background(0,20);
+  fill(0, 30);
+  rect(0, 0, width, height);
   manageFireworks();
 }
 
@@ -35,7 +36,7 @@ void manageFireworks() {
     f.run();
     
     if (!f.launched) {
-      float launchStrength = -1 * abs((randomGaussian()*3)+30);
+      float launchStrength = -1 * abs((randomGaussian()*1)+7);
       f.launch(new PVector(random(-1,1),launchStrength));
     }
     

@@ -33,15 +33,18 @@ class ShellSystem{
     
     while (it.hasNext()) {
       StandardParticle f = it.next();
-      PVector detCharge = new PVector((randomGaussian()*2)+2,(randomGaussian()*2)+2);   
+      PVector detCharge = new PVector(randomGaussian()*8,randomGaussian()*8);   
       f.detonate(detCharge);
     }
     
-    detonated = true;
-    println("Detonated");
-    
+    detonated = true;    
   }
   
+  void applyForce(PVector force) {
+  for (StandardParticle p: starArray) {
+      p.applyForce(force);
+    }
+  }
   
   void run() {
     
@@ -51,7 +54,7 @@ class ShellSystem{
       StandardParticle f = it.next();    
       f.run();
       if (f.isDead()) {
-        it.remove(); 
+        it.remove();
       }
     }
     
@@ -59,7 +62,7 @@ class ShellSystem{
   }
   
   boolean isDead() {
-    if (timer > -200) {
+    if (timer < -200) {
       return true;
     }  else {
       return false;

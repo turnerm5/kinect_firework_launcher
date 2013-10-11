@@ -17,7 +17,7 @@ class TrailParticle {
 
     //standard location/velocity/acceleration
     location = origin_.get();
-    velocity = new PVector(randomGaussian(),randomGaussian());
+    velocity = new PVector(randomGaussian(),abs(randomGaussian()));
     acceleration = new PVector();
     particleColor = color(random(200,255),random(0,30),random(10,30));
     particleSize = random(1,2);
