@@ -11,8 +11,8 @@ Add new fireworks
 		-Big explosion, then the stars get sucked back into the origin
 	
 
-Restructure classes for more flexibility (50% complete.)
+Restructure classes for more flexibility. DONE
 
-Build functions for things like detonation charge, repel, attract. Don't have them need to be initialized at the beginning.
+Build functions for things like detonation charge, repel, attract. Don't have them need to be initialized at the beginning. DONE
 
-Add more glow or things like that. Overlay, opacity, trails.
+Add more glow or things like that. Overlay, opacity, trails. DONE

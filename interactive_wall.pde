@@ -1,8 +1,7 @@
 import java.util.Iterator;
 import ddf.minim.*;
 
-ArrayList<TrailSystem> fireworks;
-ArrayList<ShellSystem> charges;
+ArrayList<Firework> fireworks;
 
 PVector gravity;
 
@@ -11,15 +10,14 @@ void setup() {
   
   background(0);
   
-  fireworks = new ArrayList<TrailSystem>();
-  charges = new ArrayList<ShellSystem>();
+  fireworks = new ArrayList<Firework>();
   
-  gravity = new PVector(0,.05);
+  gravity = new PVector(0,.03);
 }
 
 void mousePressed() {
   int timer = (int) random(80,120);
-  fireworks.add(new TrailSystem(new PVector(mouseX,mouseY), timer));
+  fireworks.add(new Firework(new PVector(mouseX,mouseY), timer));
 }
 
 void draw() {
@@ -29,9 +27,9 @@ void draw() {
 }
 
 void manageFireworks() {
-  Iterator<TrailSystem> it = fireworks.iterator();
+  Iterator<Firework> it = fireworks.iterator();
   while (it.hasNext()) {
-    TrailSystem f = it.next();    
+    Firework f = it.next();    
     f.run();
     
     if (!f.launched) {
