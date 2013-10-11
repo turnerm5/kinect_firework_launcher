@@ -15,7 +15,6 @@ void setup() {
   charges = new ArrayList<ShellSystem>();
   
   gravity = new PVector(0,.05);
-  
 }
 
 void mousePressed() {
@@ -24,7 +23,7 @@ void mousePressed() {
 }
 
 void draw() {
-  fill(0, 30);
+  fill(0, 15);
   rect(0, 0, width, height);
   manageFireworks();
 }

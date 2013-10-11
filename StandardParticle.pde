@@ -14,15 +14,15 @@ class StandardParticle {
   float friction;
   
   //construct the particles!!
-  StandardParticle(PVector origin_) {
+  StandardParticle(PVector origin_, color color_) {
 
     location = origin_.get();
     velocity = new PVector();
     acceleration = new PVector();
     
-    particleColor = color(random(0,255), random(0,255), random(0,255));
-    particleSize = random(2,4);
-    lifespan = (int) ((randomGaussian() * 10) + 100);
+    particleColor = color_;
+    particleSize = random(.5,2);
+    lifespan = (int) ((randomGaussian() * 10) + 40);
   }
   
   void run() {

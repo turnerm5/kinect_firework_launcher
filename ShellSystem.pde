@@ -10,7 +10,9 @@ class ShellSystem{
  
   int timer;
  
-  boolean detonated; 
+  boolean detonated;
+  
+  color particleColor;
    
   ShellSystem(PVector location_) {
     location = location_.get();
@@ -21,9 +23,10 @@ class ShellSystem{
   }
   
   void initParticles() {
-    int numParticles = int(random(50,120));
+    int numParticles = int(random(150,300));
+    particleColor = color(random(50,255), random(50,255), random(50,255));
     for (int i = 0; i < numParticles; i++) {     
-      starArray.add(new StandardParticle(location));
+      starArray.add(new StandardParticle(location, particleColor));
     }
   }
   

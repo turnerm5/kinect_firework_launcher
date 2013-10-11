@@ -17,12 +17,12 @@ class TrailParticle {
 
     //standard location/velocity/acceleration
     location = origin_.get();
-    velocity = new PVector(randomGaussian(),abs(randomGaussian()));
+    velocity = new PVector(randomGaussian()*.5,abs(randomGaussian()));
     acceleration = new PVector();
-    particleColor = color(random(200,255),random(0,30),random(10,30));
+    particleColor = color(random(200,255),random(100,50),random(10,30));
     particleSize = random(1,2);
     topspeed = 12;
-    lifespan = (int) ((randomGaussian() * 50) + 10) ;
+    lifespan = (int) ((randomGaussian() * 10) + 20) ;
 
   }
   
@@ -53,7 +53,7 @@ class TrailParticle {
 
   void display() {
     //they'll fade as they die!
-      float opacity = map(lifespan,400,0,220,150);
+      float opacity = map(lifespan,400,0,200,80);
       fill(particleColor,opacity);
       noStroke();
       rect(location.x, location.y, particleSize, particleSize);
