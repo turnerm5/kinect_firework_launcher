@@ -116,6 +116,15 @@ class Firework{
       velocity.x *= -.97;
     }
 
+    if (location.z < 0) {
+      location.z = 0;
+      velocity.z *= -.97;
+    } 
+    else if (location.z > width) {
+      location.z = width;
+      velocity.z *= -.97;
+    }
+
     if (location.y < 0) {
       location.y = 0;
       velocity.y *= -.97;

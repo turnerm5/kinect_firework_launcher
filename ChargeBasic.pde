@@ -10,7 +10,9 @@ class ChargeBasic{
   boolean detonated;
   color particleColor;
   float sizeMult; 
-  float detChargeX, detChargeY;
+  float detChargeX, detChargeY, detChargeZ;
+
+  int lifespanBase = 10;
   
   ChargeBasic(PVector location_) {
     location = location_.get();
@@ -21,16 +23,17 @@ class ChargeBasic{
     detonated = false;
     timer = 150;
     
-    sizeMult = 1;
+    sizeMult = 1.05;
     
     detChargeX = 5;
-    detChargeY = 5; 
+    detChargeY = 5;
+    detChargeZ = 5;  
   }
   
   void detonate() {
      
     for (int i = 0; i < numParticles; i++) {
-      int lifespan = (int) abs((randomGaussian() * 20) + 50);   
+      int lifespan = (int) abs((randomGaussian() * 20) + lifespanBase);   
       starArray.add(new Star(location, particleColor, lifespan));
     }
     
@@ -38,8 +41,8 @@ class ChargeBasic{
     
     while (it.hasNext()) {
       Star f = it.next();  
-      PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY);  
-      float particleSize = random(.5,1.5);
+      PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY,randomGaussian()*detChargeZ);  
+      float particleSize = random(2,5);
       f.changeSize(particleSize);
       f.detonate(detCharge);
     }

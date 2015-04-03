@@ -21,7 +21,7 @@ class Star {
     acceleration = new PVector();
     
     particleColor = color_;
-    particleSize = random(.5,1.5);
+    particleSize = random(1,4);
     lifespan = lifespan_;
   }
   
@@ -61,7 +61,10 @@ class Star {
       int opacity = (int)map(lifespan,400,0,255,180);
       fill(particleColor, opacity);
       noStroke();
-      rect(location.x, location.y, particleSize, particleSize);
+      pushMatrix();
+      translate(location.x, location.y, location.z);
+      box(particleSize);
+      popMatrix();
   }
   
   void checkEdges() {

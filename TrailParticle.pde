@@ -20,7 +20,7 @@ class TrailParticle {
     velocity = new PVector(randomGaussian()*.5,abs(randomGaussian()));
     acceleration = new PVector();
     particleColor = color(random(200,255),random(100,50),random(10,30));
-    particleSize = random(1,2);
+    particleSize = random(2,3);
     topspeed = 12;
     lifespan = (int) ((randomGaussian() * 10) + 20) ;
 
@@ -56,7 +56,10 @@ class TrailParticle {
       float opacity = map(lifespan,400,0,200,80);
       fill(particleColor,opacity);
       noStroke();
-      rect(location.x, location.y, particleSize, particleSize);
+      pushMatrix();
+      translate(location.x, location.y, location.z);
+      box(particleSize);
+      popMatrix();
   }
   
   boolean isDead() {
