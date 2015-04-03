@@ -1,5 +1,9 @@
 import java.util.Iterator;
 
+// Firework is the highest level class
+// It controls a Charge and a Trail ArrayList
+
+
 class Firework{
   
   PVector location;
@@ -23,33 +27,26 @@ class Firework{
     acceleration = new PVector();
     
     trailArray = new ArrayList<TrailParticle>();
+    
+    //probably overkill to use an arraylist for this, but we get such nice functions!
     chargeArray = new ArrayList<ChargeBasic>();
     
     topspeed = 12;
     timer = timer_;    
   }
   
-  void addTrailParticle() {
-    if (timer > 0) {
-      trailArray.add(new TrailParticle(location));
-    }
+  void run() {
+    //apply our forces
+    update();
+    //make sure our trail looks nice
+    manageTrail();
+    //if the timer is up, explode!
+    explode();
+    //manage all of the charges (there should only be 1 per firework, right?)
+    manageCharges();
   }
   
-  void launch(PVector force) {
-    PVector f = force.get();
-    velocity.add(f);
-    launched = true;
-  }
-  
-  void applyForce(PVector force) {
-    PVector f = force.get();
-    acceleration.add(f);
-    
-    for (TrailParticle p: trailArray) {
-      p.applyForce(force);
-    }
-  }
-  
+  //function to apply our physical functions
   void update() {
       velocity.add(acceleration);
       location.add(velocity);
@@ -58,95 +55,97 @@ class Firework{
       addTrailParticle();
       timer--;
   } 
+  
+  //keep adding particles until the firework explodes
+  void addTrailParticle() {
     
+    if (timer > 0) {
+      trailArray.add(new TrailParticle(location));
+    }
+  }
+  
+  //keep the trail running nicely
   void manageTrail() {
     Iterator<TrailParticle> it = trailArray.iterator();
     
+    //our general iterator functions
     while (it.hasNext()) {
-      TrailParticle f = it.next();    
-      f.run();
-      if (f.isDead()) {
+      TrailParticle tp = it.next();    
+      tp.run();
+
+      tp.applyForce(gravity);
+
+      if (tp.isDead()) {
         it.remove(); 
       }
     }
-    
+  }
+
+  //our explosion function!
+  void explode() {
+    if (timer == 0) {
+      
+      pushMatrix();
+      translate(location.x, location.y, location.z);
+      fill(255);
+      sphere(15);
+      popMatrix();
+
+      //randomly use a basic charge, or wacky charge
+      float test = random(0,1);
+      if (test < .5) {
+        chargeArray.add(new ChargeBasic(location));
+      } else {
+        chargeArray.add(new ChargeWacky(location));
+      }
+    }
+  }
+  
+  //apply the launch force
+  void launch(PVector force) {
+    PVector f = force.get();
+    velocity.add(f);
+    launched = true;
+  }
+  
+  //general function to apply 
+  void applyForce(PVector force) {
+    PVector f = force.get();
+    acceleration.add(f);
   }
   
   void manageCharges() {
     Iterator<ChargeBasic> ca = chargeArray.iterator();
     
     while (ca.hasNext()) {
-      ChargeBasic ss = ca.next();    
-      ss.run();
-      ss.applyForce(gravity);
-      if (!ss.detonated) {
-        ss.detonate();
+      ChargeBasic c = ca.next();    
+      
+      //run our charge's run function
+      c.run();
+      
+      //keep passing gravity to the lower classes
+      c.applyForce(gravity);
+
+      //if we haven't detonated yet, detonate!
+      if (!c.detonated) {
+        c.detonate();
       }
       
-      if (ss.isDead()) {
+      //remove the charge from the array if it's done
+      if (c.isDead()) {
         ca.remove();
       }
     }
   }
-   
-  void explode() {
-   if (timer == 0) {
-     ellipse(location.x,location.y,12,12);
      
-     float test = random(0,1);
-     
-     if (test < .5) {
-     chargeArray.add(new ChargeBasic(location));
-     } else {
-     chargeArray.add(new ChargeWacky(location));
-     }
-     
-   }
-   }
-  
-  
-  void checkEdges() {
-    //make the fireworks bounce off the edges. it's offset a bit so you can chase them off-screen  
-    if (location.x < 0) {
-      location.x = 0;
-      velocity.x *= -.97;
-    } 
-    else if (location.x > width) {
-      location.x = width;
-      velocity.x *= -.97;
-    }
-
-    if (location.z < 0) {
-      location.z = 0;
-      velocity.z *= -.97;
-    } 
-    else if (location.z > width) {
-      location.z = width;
-      velocity.z *= -.97;
-    }
-
-    if (location.y < 0) {
-      location.y = 0;
-      velocity.y *= -.97;
-    } 
-    else if (location.y > height - 2) {
-      location.y = height;
-      velocity.y *= -.97;
-    }
-  }
-  
   boolean isDead() {
-    if (timer < -200) {
+    
+    //if this is set to 0, it disappears as soon as it explodes.
+    //you need a buffer to make sure it sticks around until the particles have done their thing
+    if (timer < -300) {
       return true;
     } else {
       return false;
     }
-  }
-    
-  void run() {
-    update();
-    manageTrail();
-    explode();
-    manageCharges();
   }
 }

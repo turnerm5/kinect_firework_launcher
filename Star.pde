@@ -1,3 +1,5 @@
+//This is the actual class that is rendered when the charge explodes
+
 class Star {
   PVector origin;
   PVector location;

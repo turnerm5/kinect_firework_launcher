@@ -3,20 +3,22 @@ class ChargeWacky extends ChargeBasic {
   ChargeWacky(PVector location) {
     super(location);
     
-    numParticles = 10;
+    numParticles = (int) random(50,100);
     
-    sizeMult = 1.02;
+    sizeMult = 1.08;
     
-    detChargeX = 5;
-    detChargeY = 4;
-    detChargeZ = 7;
+    detChargeX = 10;
+    detChargeY = 10;
+    detChargeZ = 10;
     
+    lifespanBase = 20;
+
   } 
   
   void detonate() {
      
     for (int i = 0; i < numParticles; i++) {
-      int lifespan = (int) abs((randomGaussian() * 20) + 100);   
+      int lifespan = (int) abs((randomGaussian() * 10) + lifespanBase);   
       starArray.add(new Star(location, particleColor, lifespan));
     }
     
