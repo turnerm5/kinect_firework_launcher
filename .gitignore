@@ -19,6 +19,9 @@
 *.rar
 *.tar
 *.zip
+*.pyo
+*.pyc
+*~
  
 # Logs and databases #
 ######################
