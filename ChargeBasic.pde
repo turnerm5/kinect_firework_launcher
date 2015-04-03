@@ -72,25 +72,29 @@ class ChargeBasic{
     detonated = true;    
   }
   
+
+  //Apply any force we pass to it.
   void applyForce(PVector force) {
   for (Star s: starArray) {
       s.applyForce(force);
     }
   }
-  
+
+
+  //Our standard run function
   void run() {
-    
     Iterator<Star> it = starArray.iterator();
-    
     while (it.hasNext()) {
       Star s = it.next();    
       s.run();
+      //Keep increasing the size of the particle
       s.multSize(sizeMult);
       if (s.isDead()) {
         it.remove();
       }
     }
     
+    //Count down.
     timer--;
   }
   

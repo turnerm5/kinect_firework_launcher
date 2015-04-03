@@ -21,7 +21,7 @@ void setup() {
   gravity = new PVector(0,.03,0);
 
   //Camera settings
-  cam = new PeasyCam(this, 0, -300 ,0,1000);
+  cam = new PeasyCam(this, 0, -500 ,0,1500);
   cam.setMinimumDistance(500);
   cam.setMaximumDistance(5000);
   cam.setResetOnDoubleClick(false);
@@ -38,8 +38,8 @@ void mousePressed() {
 void draw() {
   fill(0);
   background(0);
-  directionalLight(51, 102, 126, 0, -1, 0);
-  //draw the gray floor
+  ambientLight(180,150,150);
+  //draw the gray floo
   pushMatrix();
   translate(0, 0, 0);
   fill(50, 50, 50);
@@ -62,7 +62,7 @@ void manageFireworks() {
     
     //Ask the firework: "Have you launched yet? If not, do this!"
     if (!f.launched) {
-      float launchStrength = abs(randomGaussian()) + 5;
+      float launchStrength = abs(randomGaussian()) + 9;
       f.launch(new PVector(random(-1,1),-launchStrength,random(-1,1)));
     }
     

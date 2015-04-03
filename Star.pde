@@ -23,34 +23,21 @@ class Star {
     acceleration = new PVector();
     
     particleColor = color_;
+    
+    //default particle sizes
     particleSize = random(1,4);
     lifespan = lifespan_;
   }
   
-  void changeSize(float particleSize_) {
-    particleSize = particleSize_; 
-  }
-  
-  void multSize(float mult_) {
-    particleSize *= mult_; 
-  }
-  
+
+  //standard run function
   void run() {
     update();
     display();
     lifespan--;
   }
-  
-  void applyForce(PVector force) {
-    PVector f = force.get();
-    acceleration.add(f); 
-  }
-  
-  void detonate(PVector force) {
-    PVector f = force.get();
-    velocity.add(f); 
-  }
-  
+
+  //run our physics updates
   void update() {
       velocity.add(acceleration);
       velocity.mult(.95);
@@ -58,9 +45,33 @@ class Star {
       acceleration.mult(0);
   } 
 
+  //Small function to do what it says
+  void changeSize(float particleSize_) {
+    particleSize = particleSize_; 
+  }
+  
+  //Allow the charge to change the size of the star
+  void multSize(float mult_) {
+    particleSize *= mult_; 
+  }
+  
+  //pass along any forces
+  void applyForce(PVector force) {
+    PVector f = force.get();
+    acceleration.add(f); 
+  }
+  
+  //pass along forces, but directly to velocity (more sudden)
+  void detonate(PVector force) {
+    PVector f = force.get();
+    velocity.add(f); 
+  }
+  
+
   void display() {
       //they'll fade as they die!
-      int opacity = (int)map(lifespan,400,0,255,180);
+      //map life
+      int opacity = (int)map(lifespan,300,0,255,50);
       fill(particleColor, opacity);
       noStroke();
       pushMatrix();

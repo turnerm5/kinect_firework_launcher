@@ -84,9 +84,9 @@ class Firework{
   //our explosion function!
   void explode() {
     if (timer == 0) {
-      
       pushMatrix();
       translate(location.x, location.y, location.z);
+      pointLight(255,255,255,0,0,0);
       fill(255);
       sphere(15);
       popMatrix();

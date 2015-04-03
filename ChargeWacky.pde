@@ -5,7 +5,7 @@ class ChargeWacky extends ChargeBasic {
     
     numParticles = (int) random(50,100);
     
-    sizeMult = 1.08;
+    sizeMult = 1.06;
     
     detChargeX = 10;
     detChargeY = 10;
