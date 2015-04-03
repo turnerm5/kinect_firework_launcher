@@ -12,7 +12,7 @@ class ChargeBasic{
   float sizeMult; 
   float detChargeX, detChargeY, detChargeZ;
 
-  int lifespanBase = 10;
+  int lifespanBase = 20;
   
   ChargeBasic(PVector location_) {
     location = location_.get();
@@ -23,7 +23,7 @@ class ChargeBasic{
     detonated = false;
     timer = 150;
     
-    sizeMult = 1.05;
+    sizeMult = 1.04;
     
     detChargeX = 5;
     detChargeY = 5;
@@ -33,7 +33,7 @@ class ChargeBasic{
   void detonate() {
      
     for (int i = 0; i < numParticles; i++) {
-      int lifespan = (int) abs((randomGaussian() * 20) + lifespanBase);   
+      int lifespan = (int) abs((randomGaussian() * 5) + lifespanBase);   
       starArray.add(new Star(location, particleColor, lifespan));
     }
     
@@ -51,8 +51,8 @@ class ChargeBasic{
   }
   
   void applyForce(PVector force) {
-  for (Star p: starArray) {
-      p.applyForce(force);
+  for (Star s: starArray) {
+      s.applyForce(force);
     }
   }
   
