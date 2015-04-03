@@ -1,11 +1,7 @@
-//
-//
-//The current date is: Mon 03/10/2014 
-//
-//
+//Copyright 2015 Marshall Turner
+//turnerm5@gmail.com
 
 import java.util.Iterator;
-import ddf.minim.*;
 import peasy.*;
 
 PeasyCam cam;
@@ -23,10 +19,11 @@ void setup() {
   
   gravity = new PVector(0,.03);
 
-  cam = new PeasyCam(this, 0, 0 ,0,1000);
+  cam = new PeasyCam(this, 0, -300 ,0,1000);
   cam.setMinimumDistance(500);
   cam.setMaximumDistance(5000);
   cam.setResetOnDoubleClick(false);
+  cam.setYawRotationMode();
 }
 
 void mousePressed() {
@@ -40,7 +37,7 @@ void draw() {
   pushMatrix();
   translate(0, 0, 0);
   fill(50, 50, 50);
-  box(200,1,200);
+  box(2000,10,2000);
   popMatrix();
   manageFireworks();
 }
