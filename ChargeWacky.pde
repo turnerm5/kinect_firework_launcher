@@ -7,9 +7,8 @@ class ChargeWacky extends ChargeBasic {
     
     sizeMult = 1.01;
     
-    detChargeX = 10;
-    detChargeY = 2;
-    
+    detChargeX = 5;
+    detChargeY = 4;
     
   } 
   
@@ -25,7 +24,7 @@ class ChargeWacky extends ChargeBasic {
     while (it.hasNext()) {
       Star f = it.next();  
       PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY);  
-      float particleSize = random(2,4);
+      float particleSize = random(1,2);
       f.changeSize(particleSize);
       f.detonate(detCharge);
     }
@@ -33,6 +32,9 @@ class ChargeWacky extends ChargeBasic {
     detonated = true;    
   }
   
+  void flyAway() {
+    
+  }
   
   
 }
