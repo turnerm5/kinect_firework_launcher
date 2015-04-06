@@ -17,8 +17,10 @@ class TrailParticle {
 
     //standard location/velocity/acceleration
     location = origin_.get();
-    velocity = new PVector(randomGaussian()*.5,abs(randomGaussian()));
+    velocity = new PVector(randomGaussian()*.5,abs(randomGaussian()), randomGaussian()*.5);
     acceleration = new PVector();
+    
+    // a reddish orange
     particleColor = color(random(200,255),random(100,50),random(10,30));
     particleSize = random(2,3);
     topspeed = 12;
@@ -26,17 +28,21 @@ class TrailParticle {
 
   }
   
+  //standard run function
   void run() {
    update();
    display();
    lifespan--;
   }
   
+
+  //pass along any forces
   void applyForce(PVector force) {
     PVector f = force.get();
     acceleration.add(f);
   }
   
+  //pass along forces, but to velocity, for a more dramatic effect
   void launch(PVector force) {
     PVector f = force.get();
     velocity.add(f);
@@ -62,6 +68,7 @@ class TrailParticle {
       popMatrix();
   }
   
+  //if the trail particle is dead, remove it.
   boolean isDead() {
     if (lifespan < 0) {
       return true;

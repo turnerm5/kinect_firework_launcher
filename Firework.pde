@@ -1,7 +1,7 @@
 import java.util.Iterator;
 
-// Firework is the highest level class
-// It controls a Charge and a Trail ArrayList
+// A Firework is the highest level class
+// It controls a Charge and a Trail
 
 
 class Firework{

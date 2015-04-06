@@ -71,7 +71,7 @@ class Star {
   void display() {
       //they'll fade as they die!
       //map lifespan to opacity
-      int opacity = (int)map(lifespan,300,0,255,50);
+      int opacity = (int)map(lifespan,300,0,255,180);
       fill(particleColor, opacity);
       noStroke();
       pushMatrix();
