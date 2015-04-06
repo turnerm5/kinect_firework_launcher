@@ -70,7 +70,7 @@ class Star {
 
   void display() {
       //they'll fade as they die!
-      //map life
+      //map lifespan to opacity
       int opacity = (int)map(lifespan,300,0,255,50);
       fill(particleColor, opacity);
       noStroke();
@@ -80,26 +80,7 @@ class Star {
       popMatrix();
   }
   
-  void checkEdges() {
-    if (location.x < 0) {
-      location.x = 0;
-      velocity.x *= -.97;
-    } 
-    else if (location.x > width) {
-      location.x = width;
-      velocity.x *= -.97;
-    }
-
-    if (location.y < 0) {
-      location.y = 0;
-      velocity.y *= -.97;
-    } 
-    else if (location.y > height - 2) {
-      location.y = height;
-      velocity.y *= -.97;
-    }
-  }
-  
+  //if the star is dead, tell the charge it's done.
   boolean isDead() {
     if (lifespan < 0) {
       return true;
