@@ -43,6 +43,10 @@ class ChargeBasic{
     detChargeY = 5;
     detChargeZ = 5;  
   }
+
+  void changeLocation(PVector loc) {
+    location = loc.get();
+  }
   
 
 
