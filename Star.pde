@@ -6,6 +6,7 @@ class Star {
   PVector velocity;
   PVector acceleration;
 
+
   color particleColor;
   float particleSize;
   
@@ -76,6 +77,12 @@ class Star {
       noStroke();
       pushMatrix();
       translate(location.x, location.y, location.z);
+      float xRot = radians(location.x * 5);
+      float yRot = radians(location.y * 5);
+      float zRot = radians(location.z * 5);
+      rotate(xRot);
+      rotate(yRot);
+      rotate(zRot);
       box(particleSize);
       popMatrix();
   }
