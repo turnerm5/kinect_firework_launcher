@@ -35,10 +35,13 @@ class Firework{
     float test = random(0,1);
     if (test < .3) {
       charge = new ChargeBasic(location);
+      println("Basic charge");
     } else if (test < .66) {
       charge = new ChargeWacky(location);
+      println("Wacky charge");
     } else {
       charge = new ChargeWillow(location);
+      println("Willow charge");
     }
     
     topspeed = 12;
@@ -46,17 +49,18 @@ class Firework{
 
   }
   
+  ////////////////////
+  // Core functions //
+  ////////////////////
+
   void run() {
     //apply our forces
     update();
     //make sure our trail looks nice
     manageTrail();
-    
     //manage all of the charges
-    charge.run();
-    charge.applyForce(gravity);
-    charge.changeLocation(location);
-    
+    manageCharge();
+  
     //if the timer is up, explode!
     if (timer == 0) {
       explode();
@@ -74,29 +78,23 @@ class Firework{
       timer--;
   } 
   
-  //keep adding particles until the firework explodes
-  void addTrailParticle() {
-    
-    if (timer > 0) {
-      trailArray.add(new TrailParticle(location));
-    }
-  }
-  
   //keep the trail running nicely
   void manageTrail() {
     Iterator<TrailParticle> it = trailArray.iterator();
-    
-    //our general iterator functions
     while (it.hasNext()) {
       TrailParticle tp = it.next();    
       tp.run();
-
       tp.applyForce(gravity);
-
       if (tp.isDead()) {
         it.remove(); 
       }
     }
+  }
+
+  void manageCharge() {
+    charge.run();
+    charge.applyForce(gravity);
+    charge.changeLocation(location);
   }
 
   //our explosion function!
@@ -108,6 +106,18 @@ class Firework{
     sphere(15);
     popMatrix();
     charge.detonate();
+  }
+
+
+  ///////////////////////
+  // Utility functions //
+  ///////////////////////  
+
+  //keep adding particles
+  void addTrailParticle() { 
+    if (timer > 0) {
+      trailArray.add(new TrailParticle(location));
+    }
   }
   
   //apply the launch force
@@ -124,7 +134,6 @@ class Firework{
   }
   
   boolean isDead() {
-    
     //if this is set to 0, it disappears as soon as it explodes.
     //you need a buffer to make sure it sticks around until the particles have done their thing
     if (timer < -300) {

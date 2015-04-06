@@ -3,48 +3,25 @@ class ChargeWacky extends ChargeBasic {
   ChargeWacky(PVector location) {
     super(location);
     
+    //smaller number of particles
     numParticles = (int) random(50,100);
     
+    //stars grow in size over time
     sizeMult = 1.008;
     
+    //small detonation
     detChargeX = 5;
     detChargeY = 5;
     detChargeZ = 5;
     
+    //longer lifespan
     lifespanBase = 100;
 
-  } 
-  
-  void detonate() {
-     
-    for (int i = 0; i < numParticles; i++) {
-      int lifespan = (int) abs((randomGaussian() * 10) + lifespanBase);   
-      starArray.add(new Star(location, particleColor, lifespan));
-    }
-    
-    Iterator<Star> it = starArray.iterator();
-    
-    while (it.hasNext()) {
-      Star f = it.next();  
-      PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY, randomGaussian()*detChargeZ);  
-      float particleSize = random(4,8);
-      f.changeSize(particleSize);
-      f.applyForce(detCharge);
-    }
-    
-    detonated = true;    
-  }
+    //smaller stars
+    lowerSize = 1;
+    upperSize = 3;
 
-  //Neutralize any force we pass to it.
-  void applyForce(PVector force) {
-    
-    PVector f = force.get();
-    f.mult(-1.05);
-
-    for (Star s: starArray) {
-        s.applyForce(f);
-      }
-  }
-   
-  
+    //gravity is reversed!
+    forceMultiplier = -1.05;
+  }   
 }

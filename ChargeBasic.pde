@@ -2,6 +2,7 @@ import java.util.Iterator;
 
 //This is our basic charge class
 //It controls an arraylist of stars, the actual class that is rendered
+//New attributes should be coded so only variables need to be changed.
 
 class ChargeBasic{
   
@@ -14,10 +15,10 @@ class ChargeBasic{
   color particleColor;
   float sizeMult; 
   float detChargeX, detChargeY, detChargeZ;
+  int lowerSize, upperSize;
+  float forceMultiplier;
 
-  
-  //each charge has a different lifespan for its stars
-  int lifespanBase = 20;
+  int lifespanBase;
   
   ChargeBasic(PVector location_) {
     location = location_.get();
@@ -30,6 +31,8 @@ class ChargeBasic{
     
     //a rainbow!
     particleColor = color(random(50,255), random(50,255), random(50,255));
+    
+    //has not detonated
     detonated = false;
     
     //the basic charge has a default timer
@@ -38,54 +41,57 @@ class ChargeBasic{
     //the particles grow as they stay in the sky
     sizeMult = 1.01;
     
-    //how big of an explosion in every direction
+    //a medium size explosion
     detChargeX = 8;
     detChargeY = 8;
-    detChargeZ = 8;  
+    detChargeZ = 8;
+
+    //moderately sized stars
+    lowerSize = 3;
+    upperSize = 5;  
+
+    //moderate lifespan
+    lifespanBase = 20;
+
+    //no force multiplier
+    forceMultiplier = 1;
   }
 
+
+
+
+  ///////////////////////
+  // Utility functions //
+  ///////////////////////
+  
   void changeLocation(PVector loc) {
     location = loc.get();
   }
   
-
-
-  void detonate() {
-    
-    //create our new stars, each with a random lifespan     
-    for (int i = 0; i < numParticles; i++) {
-      int lifespan = (int) abs((randomGaussian() * 5) + lifespanBase);   
-      starArray.add(new Star(location, particleColor, lifespan));
-    }
-    
-    //run through the stars we just created, apply a random force to explode
-    Iterator<Star> it = starArray.iterator();
-    while (it.hasNext()) {
-      Star s = it.next();  
-      PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY,randomGaussian()*detChargeZ);  
-      
-      //the particles need a size, so we can see them
-      float particleSize = random(3,5);
-      s.changeSize(particleSize);
-      
-      //apply the force, using the star's detonate function
-      s.detonate(detCharge);
-    }
-    
-    //tell the firework that we've exploded
-    detonated = true;    
-  }
-  
-
-  //Apply any force we pass to it.
   void applyForce(PVector force) {
-  for (Star s: starArray) {
-      s.applyForce(force);
+    PVector f = force.get();
+    f.mult(forceMultiplier);
+    for (Star s: starArray) {
+        s.applyForce(f);
+      }
+  }
+
+  boolean isDead() {
+    if (timer < -200) {
+      return true;
+    }  else {
+      return false;
     }
   }
 
 
-  //Our standard run function
+
+
+
+  ////////////////////
+  // Core functions //
+  ////////////////////
+  
   void run() {
     Iterator<Star> it = starArray.iterator();
     while (it.hasNext()) {
@@ -101,12 +107,31 @@ class ChargeBasic{
     //Count down.
     timer--;
   }
-  
-  boolean isDead() {
-    if (timer < -200) {
-      return true;
-    }  else {
-      return false;
+
+  void detonate() {
+
+    //create our new stars, each with a random lifespan     
+    for (int i = 0; i < numParticles; i++) {
+      int lifespan = (int) abs((randomGaussian() * 5) + lifespanBase);   
+      float particleSize = random(lowerSize, upperSize);
+      starArray.add(new Star(location, particleColor, lifespan, particleSize));
     }
+    
+    //run through the stars we just created, apply a random force to explode
+    Iterator<Star> it = starArray.iterator();
+    while (it.hasNext()) {
+      Star s = it.next();  
+      PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY,randomGaussian()*detChargeZ);  
+      
+      //the particles need a size, so we can see them
+      
+      
+      //apply the force, using the star's detonate function
+      s.detonate(detCharge);
+    }
+    
+    //tell the firework that we've exploded
+    detonated = true;    
   }
+  
 }

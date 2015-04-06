@@ -17,7 +17,7 @@ class Star {
   float friction;
   
   //construct the particles!!
-  Star(PVector origin_, color color_, int lifespan_) {
+  Star(PVector origin_, color color_, int lifespan_, float particleSize_) {
 
     location = origin_.get();
     velocity = new PVector();
@@ -26,48 +26,31 @@ class Star {
     particleColor = color_;
     
     //default particle sizes
-    particleSize = random(1,4);
+    particleSize = particleSize_;
     lifespan = lifespan_;
+
+    friction = .95;
   }
   
-
+  ////////////////////
+  // Core functions //
+  ////////////////////
+  
   //standard run function
   void run() {
     update();
     display();
+
     lifespan--;
   }
 
   //run our physics updates
   void update() {
       velocity.add(acceleration);
-      velocity.mult(.95);
+      velocity.mult(friction);
       location.add(velocity);
       acceleration.mult(0);
   } 
-
-  //Small function to do what it says
-  void changeSize(float particleSize_) {
-    particleSize = particleSize_; 
-  }
-  
-  //Allow the charge to change the size of the star
-  void multSize(float mult_) {
-    particleSize *= mult_; 
-  }
-  
-  //pass along any forces
-  void applyForce(PVector force) {
-    PVector f = force.get();
-    acceleration.add(f); 
-  }
-  
-  //pass along forces, but directly to velocity (more sudden)
-  void detonate(PVector force) {
-    PVector f = force.get();
-    velocity.add(f); 
-  }
-  
 
   void display() {
       //they'll fade as they die!
@@ -87,6 +70,39 @@ class Star {
       popMatrix();
   }
   
+
+
+
+  ///////////////////////
+  // Utility functions //
+  ///////////////////////  
+
+  //Does what it says on the box
+  void changeSize(float particleSize_) {
+    particleSize = particleSize_; 
+  }
+  
+  //Allow the charge to change the size of the star
+  void multSize(float mult_) {
+    particleSize *= mult_; 
+  }
+  
+  //pass along any forces to acceleration
+  void applyForce(PVector force) {
+    PVector f = force.get();
+    acceleration.add(f); 
+  }
+  
+  //pass along forces, but directly to velocity (more sudden)
+  void detonate(PVector force) {
+    PVector f = force.get();
+    velocity.add(f); 
+  }
+  
+  void changeFriction(float friction_) {
+    friction = friction;
+  }
+
   //if the star is dead, tell the charge it's done.
   boolean isDead() {
     if (lifespan < 0) {
@@ -95,7 +111,6 @@ class Star {
       return false;
     }
   }
-  
 
   
 }
