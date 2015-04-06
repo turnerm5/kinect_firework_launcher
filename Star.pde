@@ -100,7 +100,7 @@ class Star {
   }
   
   void changeFriction(float friction_) {
-    friction = friction;
+    friction = friction_;
   }
 
   //if the star is dead, tell the charge it's done.

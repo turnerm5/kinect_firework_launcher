@@ -10,9 +10,9 @@ class ChargeWillow extends ChargeBasic {
     sizeMult = .98;
     
     //big detonation
-    detChargeX = 15;
-    detChargeY = 15;
-    detChargeZ = 15;
+    detChargeX = 40;
+    detChargeY = 40;
+    detChargeZ = 40;
 
     //a whiteish color
     particleColor = color(random(240,255), random(240,255), random(240,255));
@@ -25,6 +25,8 @@ class ChargeWillow extends ChargeBasic {
     upperSize = 8;
 
     //gravity is very strong
-    forceMultiplier = 20;
+    forceMultiplier = 8;
+
+    friction = 0.78;
   }   
 }

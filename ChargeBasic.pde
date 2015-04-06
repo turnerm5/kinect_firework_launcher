@@ -17,6 +17,7 @@ class ChargeBasic{
   float detChargeX, detChargeY, detChargeZ;
   int lowerSize, upperSize;
   float forceMultiplier;
+  float friction;
 
   int lifespanBase;
   
@@ -30,7 +31,7 @@ class ChargeBasic{
     numParticles = int(random(150,300));
     
     //a rainbow!
-    particleColor = color(random(50,255), random(50,255), random(50,255));
+    particleColor = color(random(120,255), random(120,255), random(120,255));
     
     //has not detonated
     detonated = false;
@@ -55,6 +56,9 @@ class ChargeBasic{
 
     //no force multiplier
     forceMultiplier = 1;
+
+    //medium friction
+    friction = 0.95;
   }
 
 
@@ -120,11 +124,9 @@ class ChargeBasic{
     //run through the stars we just created, apply a random force to explode
     Iterator<Star> it = starArray.iterator();
     while (it.hasNext()) {
-      Star s = it.next();  
+      Star s = it.next();
+      s.changeFriction(friction);  
       PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY,randomGaussian()*detChargeZ);  
-      
-      //the particles need a size, so we can see them
-      
       
       //apply the force, using the star's detonate function
       s.detonate(detCharge);
