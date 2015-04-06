@@ -7,21 +7,21 @@ class ChargeWacky extends ChargeBasic {
     numParticles = (int) random(50,100);
     
     //stars grow in size over time
-    sizeMult = 1.008;
+    sizeMult = 1.004;
     
     //small detonation
-    detChargeX = 5;
-    detChargeY = 5;
-    detChargeZ = 5;
+    detChargeX = 8;
+    detChargeY = 8;
+    detChargeZ = 8;
     
     //longer lifespan
     lifespanBase = 100;
 
     //smaller stars
-    lowerSize = 1;
-    upperSize = 3;
+    lowerSize = 5;
+    upperSize = 8;
 
     //gravity is reversed!
-    forceMultiplier = -1.05;
+    forceMultiplier = -1.07;
   }   
 }
