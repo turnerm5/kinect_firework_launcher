@@ -8,7 +8,7 @@ class ChargeWillow extends ChargeBasic {
     sizeMult = .98;
     
     detChargeX = 15;
-    detChargeY = 5;
+    detChargeY = 10;
     detChargeZ = 15;
     
     lifespanBase = 70;

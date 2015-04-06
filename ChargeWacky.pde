@@ -29,7 +29,7 @@ class ChargeWacky extends ChargeBasic {
       PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY, randomGaussian()*detChargeZ);  
       float particleSize = random(4,8);
       f.changeSize(particleSize);
-      f.detonate(detCharge);
+      f.applyForce(detCharge);
     }
     
     detonated = true;    
