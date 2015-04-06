@@ -1,3 +1,5 @@
+Make fireworks emit light, or have some sort of OpenGL blending.
+
 Add new fireworks
 	-Willow
 		-Big explosion, long lifespan, trails. Might have to use a separate layer?
@@ -9,10 +11,4 @@ Add new fireworks
 		-Two big stars come out, and then are attracted to each other, zipping by. Maybe firing at each other?
 	-Warp
 		-Big explosion, then the stars get sucked back into the origin
-	
 
-Restructure classes for more flexibility. DONE
-
-Build functions for things like detonation charge, repel, attract. Don't have them need to be initialized at the beginning. DONE
-
-Add more glow or things like that. Overlay, opacity, trails. DONE
