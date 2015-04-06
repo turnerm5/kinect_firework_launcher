@@ -39,9 +39,9 @@ class ChargeBasic{
     sizeMult = 1.01;
     
     //how big of an explosion in every direction
-    detChargeX = 5;
-    detChargeY = 5;
-    detChargeZ = 5;  
+    detChargeX = 8;
+    detChargeY = 8;
+    detChargeZ = 8;  
   }
 
   void changeLocation(PVector loc) {

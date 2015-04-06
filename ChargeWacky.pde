@@ -5,7 +5,7 @@ class ChargeWacky extends ChargeBasic {
     
     numParticles = (int) random(50,100);
     
-    sizeMult = 1.005;
+    sizeMult = 1.008;
     
     detChargeX = 5;
     detChargeY = 5;
@@ -39,7 +39,7 @@ class ChargeWacky extends ChargeBasic {
   void applyForce(PVector force) {
     
     PVector f = force.get();
-    f.mult(0);
+    f.mult(-1.05);
 
     for (Star s: starArray) {
         s.applyForce(f);

@@ -107,7 +107,6 @@ class Firework{
     fill(255);
     sphere(15);
     popMatrix();
-
     charge.detonate();
   }
   
