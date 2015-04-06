@@ -93,10 +93,12 @@ class Firework{
 
       //randomly use a basic charge, or wacky charge
       float test = random(0,1);
-      if (test < .5) {
+      if (test < .3) {
         chargeArray.add(new ChargeBasic(location));
-      } else {
+      } else if (test < .66) {
         chargeArray.add(new ChargeWacky(location));
+      } else {
+        chargeArray.add(new ChargeWillow(location));
       }
     }
   }

@@ -36,7 +36,7 @@ class ChargeBasic{
     timer = 150;
     
     //the particles grow as they stay in the sky
-    sizeMult = 1.04;
+    sizeMult = 1.01;
     
     //how big of an explosion in every direction
     detChargeX = 5;
@@ -61,7 +61,7 @@ class ChargeBasic{
       PVector detCharge = new PVector(randomGaussian()*detChargeX,randomGaussian()*detChargeY,randomGaussian()*detChargeZ);  
       
       //the particles need a size, so we can see them
-      float particleSize = random(2,5);
+      float particleSize = random(3,5);
       s.changeSize(particleSize);
       
       //apply the force, using the star's detonate function

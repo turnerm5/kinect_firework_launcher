@@ -38,6 +38,7 @@ void mousePressed() {
 void draw() {
   fill(0);
   background(0);
+  ambientLight(200,200,200);
   //draw the gray floor
   pushMatrix();
   translate(0, 0, 0);

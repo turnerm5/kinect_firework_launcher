@@ -5,13 +5,13 @@ class ChargeWacky extends ChargeBasic {
     
     numParticles = (int) random(50,100);
     
-    sizeMult = 1.06;
+    sizeMult = 1.005;
     
-    detChargeX = 10;
-    detChargeY = 10;
-    detChargeZ = 10;
+    detChargeX = 5;
+    detChargeY = 5;
+    detChargeZ = 5;
     
-    lifespanBase = 20;
+    lifespanBase = 100;
 
   } 
   
@@ -33,6 +33,17 @@ class ChargeWacky extends ChargeBasic {
     }
     
     detonated = true;    
+  }
+
+  //Neutralize any force we pass to it.
+  void applyForce(PVector force) {
+    
+    PVector f = force.get();
+    f.mult(0);
+
+    for (Star s: starArray) {
+        s.applyForce(f);
+      }
   }
    
   
