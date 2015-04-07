@@ -33,18 +33,21 @@ class Firework{
 
     //randomly use a basic charge, or wacky charge
     float test = random(0,1);
-    if (test < .25) {
+    if (test < .2) {
       charge = new ChargeBasic(location);
       println("Basic charge");
-    } else if (test < .5) {
+    } else if (test < .4) {
       charge = new ChargeWacky(location);
       println("Wacky charge");
-    } else if (test < .75) {
+    } else if (test < .6) {
       charge = new ChargeWillow(location);
       println("Willow charge");
-    } else {
+    } else if (test < .9) {
       charge = new ChargeVacuum(location);
       println("Vacuum charge");
+    } else {
+      charge = new ChargeDouble(location, false);
+      println("Double Charge");
     }
     
     topspeed = 12;

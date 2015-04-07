@@ -132,8 +132,6 @@ class ChargeBasic{
       s.detonate(detCharge);
     }
     
-    //tell the firework that we've exploded
-    detonated = true;    
   }
   
 }
