@@ -42,7 +42,7 @@ class Firework{
     } else if (test < .6) {
       charge = new ChargeWillow(location);
       println("Willow charge");
-    } else if (test < .9) {
+    } else if (test < .8) {
       charge = new ChargeVacuum(location);
       println("Vacuum charge");
     } else {

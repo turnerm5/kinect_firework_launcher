@@ -2,7 +2,7 @@ class ChargeDouble extends ChargeBasic {
   
   ArrayList<ChargeBasic> chargeArray;
   boolean alreadyExploded;
-  int secondaryTimer = 30;
+  int secondaryTimer = 40;
   boolean timerTriggered;
 
   ChargeDouble(PVector location, boolean exploded_) {
@@ -16,11 +16,11 @@ class ChargeDouble extends ChargeBasic {
     sizeMult = 0.98;
 
     //smaller number of particles
-    numParticles = (int) random(5,10);
+    numParticles = (int) random(5,8);
 
-    //larger stars
-    lowerSize = 5;
-    upperSize = 10;
+    //smaller stars
+    lowerSize = 2;
+    upperSize = 5;
 
     //a medium size explosion
     detChargeX = 15;
@@ -57,7 +57,7 @@ class ChargeDouble extends ChargeBasic {
       Iterator<Star> stIt = starArray.iterator();
       while (stIt.hasNext()) {
         Star s = stIt.next();
-        chargeArray.add(new ChargeBasic(s.location));  
+        chargeArray.add(new ChargeDoubleBreak(s.location));  
       }
 
       Iterator<ChargeBasic> it = chargeArray.iterator();
