@@ -33,20 +33,23 @@ class Firework{
 
     //randomly use a basic charge, or wacky charge
     float test = random(0,1);
-    if (test < .2) {
+    if (test < .02) {
       charge = new ChargeBasic(location);
       println("Basic charge");
-    } else if (test < .4) {
+    } else if (test < .04) {
       charge = new ChargeWacky(location);
       println("Wacky charge");
-    } else if (test < .6) {
+    } else if (test < .06) {
       charge = new ChargeWillow(location);
       println("Willow charge");
-    } else if (test < .8) {
+    } else if (test < .08) {
       charge = new ChargeVacuum(location);
       println("Vacuum charge");
-    } else {
-      charge = new ChargeDouble(location, false);
+    } else if (test < .08) {
+      charge = new ChargeVacuum(location);
+      println("Vacuum charge");
+    }     else {
+      charge = new ChargeCool(location);
       println("Double Charge");
     }
     
@@ -82,6 +85,10 @@ class Firework{
       acceleration.mult(0);
       addTrailParticle();
       timer--;
+
+      if (timer > 0){
+        spotLight(255,255,255,location.x,location.y,location.z,0,1,0,TWO_PI,1);
+      }
   } 
   
   //keep the trail running nicely

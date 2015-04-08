@@ -30,14 +30,16 @@ void setup() {
 
 void keyPressed() {
   //how long should our firework wait to explode?
-  int timer = (int) random(80,100);
-  fireworks.add(new Firework(new PVector(randomGaussian()*20,2,randomGaussian()*20), timer));
+  if (fireworks.size() < 7){
+    int timer = (int) random(80,100);
+    fireworks.add(new Firework(new PVector(randomGaussian()*20,2,randomGaussian()*20), timer));
+  }
 }
 
 void draw() {
   fill(0);
   background(0);
-  ambientLight(150,150,150);
+  ambientLight(175,175,175);
   directionalLight(255,255,255, 0, -1, 0);
   pushMatrix();
   translate(0, 10, 0);
