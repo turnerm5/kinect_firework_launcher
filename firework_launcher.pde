@@ -30,7 +30,7 @@ void setup() {
 
 void keyPressed() {
   //how long should our firework wait to explode?
-  if (fireworks.size() < 7){
+  if (fireworks.size() < 10){
     int timer = (int) random(80,100);
     fireworks.add(new Firework(new PVector(randomGaussian()*20,2,randomGaussian()*20), timer));
   }
