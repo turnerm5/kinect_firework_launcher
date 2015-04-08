@@ -21,28 +21,27 @@ void setup() {
   gravity = new PVector(0,.03,0);
 
   //Camera settings
-  cam = new PeasyCam(this, 0, -500 ,0,1500);
+  cam = new PeasyCam(this, 0, -500 ,0,1200);
   cam.setMinimumDistance(500);
   cam.setMaximumDistance(5000);
-  cam.setResetOnDoubleClick(false);
-  cam.setYawRotationMode();
+  cam.setResetOnDoubleClick(true);
+  // cam.setYawRotationMode();
 }
 
-void mousePressed() {
-  
+void keyPressed() {
   //how long should our firework wait to explode?
-  int timer = (int) random(80,120);
-  fireworks.add(new Firework(new PVector(randomGaussian()*5,randomGaussian()*5,randomGaussian()*5), timer));
+  int timer = (int) random(80,100);
+  fireworks.add(new Firework(new PVector(randomGaussian()*20,2,randomGaussian()*20), timer));
 }
 
 void draw() {
   fill(0);
   background(0);
-  ambientLight(200,200,200);
-  //draw the gray floor
+  ambientLight(150,150,150);
+  directionalLight(255,255,255, 0, -1, 0);
   pushMatrix();
-  translate(0, 0, 0);
-  fill(50, 50, 50);
+  translate(0, 10, 0);
+  fill(20, 20, 20);
   box(500,10,500);
   popMatrix();
   
