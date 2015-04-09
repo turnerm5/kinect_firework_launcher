@@ -7,7 +7,7 @@ class ChargeCool extends ChargeBasic {
     numParticles = (int) random(50,100);
     
     //stars grow in size over time
-    sizeMult = 1.2;
+    sizeMult = 1.1;
     
     //small detonation
     detChargeX = 14;

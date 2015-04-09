@@ -1,17 +1,12 @@
 class ChargeDouble extends ChargeBasic {
   
-  ArrayList<ChargeBasic> chargeArray;
-  boolean alreadyExploded;
-  int secondaryTimer = 40;
-  boolean timerTriggered;
+  ArrayList<ChargeDoubleBreak> chargeArray;
 
-  ChargeDouble(PVector location, boolean exploded_) {
+  ChargeDouble(PVector location) {
     super(location);
 
-    chargeArray = new ArrayList<ChargeBasic>();
+    chargeArray = new ArrayList<ChargeDoubleBreak>();
 
-    alreadyExploded = exploded_;
-    timerTriggered = false;
 
     sizeMult = 0.98;
 
@@ -35,38 +30,26 @@ class ChargeDouble extends ChargeBasic {
 
   void detonate() {
     super.detonate();
-    timerTriggered = true;
-  }
+    
+    for(Star s : starArray) {
+      int breakTimer = (int)random(80,100);
+      println("breakTimer: " + breakTimer);
+      chargeArray.add(new ChargeDoubleBreak(s.location, breakTimer));  
+    }
 
+    for (ChargeDoubleBreak c : chargeArray){
+      c.trigger();
+    }
+  }
 
   void run() {
     super.run();
-
-    Iterator<ChargeBasic> chIt = chargeArray.iterator();
-    while (chIt.hasNext()) {
-      ChargeBasic c = chIt.next();
+    
+    for (ChargeDoubleBreak c : chargeArray){
       c.run();
-    }
-
-    if (timerTriggered) {
-      secondaryTimer--;
-    }
-
-    if (secondaryTimer == 0 && !alreadyExploded) {
-      //run through the stars we just created, apply a random force to explode
-      Iterator<Star> stIt = starArray.iterator();
-      while (stIt.hasNext()) {
-        Star s = stIt.next();
-        chargeArray.add(new ChargeDoubleBreak(s.location));  
-      }
-
-      Iterator<ChargeBasic> it = chargeArray.iterator();
-      while (it.hasNext()) {
-        ChargeBasic c = it.next();
+      if (c.explodeTest()) {
         c.detonate();
       }
-
-      alreadyExploded = true;  
-    }
+    }   
   }
 }
