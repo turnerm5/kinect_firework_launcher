@@ -5,7 +5,6 @@
 //
 
 import java.util.Iterator;
-import ddf.minim.*;
 
 ArrayList<Firework> fireworks;
 
